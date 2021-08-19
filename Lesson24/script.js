@@ -20,24 +20,23 @@ const personalMovieDB = {
     actors: {},
     genres: [],
     privat: true,
-    // empty: false,
-    start: function (){
-        while (this.count == '' || this.count == null || isNaN(this.count)) {
-            this.count = +prompt('Сколько фильмов вы уже просмотрели?', '');
+    start: function () {
+        this.count = +prompt('Сколько фильмов вы просмотрели за последний месяц?', '');
+        if (!this.count) {
+            return this.count;
         }
     },
-    // isEmpty: function(value){
-    //     return (value != null && value != '');
-    // },
     rememberMyFilms: function () {
-        for (let i = 0; i < 2; i++){
+        if (!this.count) {
+            return this.count;
+        }
+        for (let i = 0; i < this.count; i++){
             const a = prompt('Один из последних просмотренных фильмов?', ''),
                   b = prompt('На сколько оцените его?', '');
-                // if (personalMovieDB.isEmpty(a, b) && a.length < 50){
-                if (a != null && b != null && a != '' && b != '' && a.length < 50) {
+            if (!a && !b && a.length < 50) {
                 personalMovieDB.movies[a] = b;
                 console.log('Done');
-                } else {
+            } else {
                 console.log('Error');
                 i--;
             }
@@ -57,14 +56,14 @@ const personalMovieDB = {
 //  3) В методе writeYourGenres запретить пользователю нажать кнопку "отмена" или оставлять пустую строку. 
 //  Если он это сделал - возвращать его к этому же вопросу.
     writeYourGenres: function () {
-        for (let i = 1; i <= 3; i++){
-            let genre = prompt(` Ваш любимый жанр под номером ${i}`);
+        for (let i = 0; i < 3; i++){
+            let genre = prompt(` Ваш любимый жанр под номером ${i + 1}`);
 
             if (genre == '' ||  genre == null) {
                 console.log('Введите корректные данные');
                 i--;
             } else {
-                personalMovieDB.genres[i - 1] = genre;
+                personalMovieDB.genres[i] = genre;
             }
         }
         // После того, как все жанры введены -  
@@ -83,13 +82,12 @@ const personalMovieDB = {
             personalMovieDB.privat = true;
         }
     },
-    showMyDB: function (hidden) {
-        if (personalMovieDB.privat = false) {
+    showMyDB: function () {
+        if (this.privat) {
             console.log(personalMovieDB);
         }
     },
 };
-
 
 personalMovieDB.start();
 
@@ -101,7 +99,19 @@ personalMovieDB.writeYourGenres();
 
 personalMovieDB.toggleVisibleMyDB();
 
-personalMovieDB.showMyDB(personalMovieDB.privat);
+personalMovieDB.showMyDB();
 
 
 
+
+
+// const store = {
+//     answer: null,
+// };
+
+// function ask() {
+//     store.answer = prompt('???');
+//     if (!store.answer) ask();
+// }
+
+// ask();
