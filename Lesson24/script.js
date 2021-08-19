@@ -20,19 +20,21 @@ const personalMovieDB = {
     actors: {},
     genres: [],
     privat: true,
+    // empty: false,
     start: function (){
-        personalMovieDB.count = +prompt('Сколько фильмов вы уже просмотрели?', '');
-    
-        while (personalMovieDB.count == '' || personalMovieDB.count == null || isNaN(personalMovieDB.count)) {
-            personalMovieDB.count = +prompt('Сколько фильмов вы уже просмотрели?', '');
+        while (this.count == '' || this.count == null || isNaN(this.count)) {
+            this.count = +prompt('Сколько фильмов вы уже просмотрели?', '');
         }
     },
+    // isEmpty: function(value){
+    //     return (value != null && value != '');
+    // },
     rememberMyFilms: function () {
         for (let i = 0; i < 2; i++){
             const a = prompt('Один из последних просмотренных фильмов?', ''),
                   b = prompt('На сколько оцените его?', '');
-
-                if (a != null && b != null && a != '' && b != '' && a.length < 50){
+                // if (personalMovieDB.isEmpty(a, b) && a.length < 50){
+                if (a != null && b != null && a != '' && b != '' && a.length < 50) {
                 personalMovieDB.movies[a] = b;
                 console.log('Done');
                 } else {
@@ -82,7 +84,7 @@ const personalMovieDB = {
         }
     },
     showMyDB: function (hidden) {
-        if (!hidden) {
+        if (personalMovieDB.privat = false) {
             console.log(personalMovieDB);
         }
     },
