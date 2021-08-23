@@ -1,0 +1,20 @@
+.box {
+    width: 150px;
+    height: 150px;
+    background-color: red;
+  }
+  button {
+      width: 80px;
+      height: 30px;
+      margin-top: 10px;
+      border: none;
+      border-radius: 8px;
+      background-color: #000;
+      color: #fff;
+      cursor: pointer;
+      outline: none;
+  }
+  .overlay{
+      background-color:aqua;
+      padding: 5vw;
+  }
