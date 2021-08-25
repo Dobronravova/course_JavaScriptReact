@@ -7,7 +7,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
     
         function showModal() {
-            modal.classList.add('show', 'fade');
+            modal.classList.toggle('show', 'fade');
             modal.classList.remove('hide');
             document.body.style.overflow = 'hidden';
         }
@@ -19,14 +19,30 @@ window.addEventListener('DOMContentLoaded', () => {
         }
 
         btns.forEach(btn => {
-            btn.addEventListener('click', (event) => {
+            btn.addEventListener('click', () => {
                 showModal();
                 console.log('open');
             });
         });
 
-        close.addEventListener('click', (event) => {
+        close.addEventListener('click', () => {
             closeModal();
             console.log('close');
+        });
+
+        //закрытие по клику вне модалки
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal){
+                closeModal();
+            }
+        });
+
+        //закрытие по esc
+
+        document.addEventListener('keydown', (e) => {
+            if (e.code === 'Escape' && modal.classList.contains('show')){
+                closeModal();
+            }
         });
 });
