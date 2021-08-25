@@ -9,11 +9,13 @@ window.addEventListener('DOMContentLoaded', () => {
         function showModal() {
             modal.classList.add('show', 'fade');
             modal.classList.remove('hide');
+            document.body.style.overflow = 'hidden';
         }
 
         function closeModal() {
             modal.classList.add('hide');
             modal.classList.remove('show', 'fade');
+            document.body.style.overflow = 'auto';
         }
 
         btns.forEach(btn => {
