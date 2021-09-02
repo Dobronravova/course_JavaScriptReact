@@ -1,53 +1,48 @@
 window.addEventListener('DOMContentLoaded', () => {
-    const sliderContainer = document.querySelector('.offer__slider'),
-          totalSlides =  sliderContainer.querySelector('#total'),
-          slides = sliderContainer.querySelectorAll('.offer__slide'),
-          currentSlides = sliderContainer.querySelector('#current'),
-          prevSlide = sliderContainer.querySelector('.offer__slider-prev'),
-          nextSlide = sliderContainer.querySelector('.offer__slider-next');
+    const slides = document.querySelectorAll('.offer__slide'),
+          prev = document.querySelector('.offer__slider-prev'),
+          next = document.querySelector('.offer__slider-next'),
+          total = document.querySelector('#total'),
+          current = document.querySelector('#current');
+    let slideIndex = 1; //1, а не 0 для видимого индекса
 
-    
-    const countSlides = slides.length;
+    showSlides(slideIndex);
 
-    if (countSlides > 10) {
-        totalSlides.textContent = countSlides;
+    if (slides.length < 10){
+        total.textContent = `0${slides.length}`;
     } else {
-        totalSlides.textContent = `0${countSlides}`;
+        total.textContent = slides.length;
     }
-    console.log(countSlides);
 
 
-    function toggleSlider(index, slidesArr) {
-        slidesArr.forEach((slide) => {
-            slide.classList.add('hide');
-        });
-        slidesArr[index].classList.add('show');
-        slidesArr[index].classList.remove('hide');
-        console.log(index + 1);
-        if (index >= 9) {
-            currentSlides.textContent = index + 1;
+    function showSlides(n){ 
+        if (n > slides.length){ //больше количества слайдов
+            slideIndex = 1;
+        }
+        if (n < 1) {
+            slideIndex = slides.length;
+        }
+        slides.forEach(item => item.style.display = 'none'); //скрыть все
+        slides[slideIndex - 1].style.display = 'block'; //показать нужный
+
+        // if (slides.length < 10){ //ошибка
+        if (slideIndex < 10){
+            current.textContent = `0${slideIndex}`;
         } else {
-            currentSlides.textContent = `0${index + 1}`;
+            current.textContent = slideIndex;
         }
     }
-    
-    let indexSlide = 0;
-    toggleSlider(indexSlide, slides);
 
-    nextSlide.addEventListener('click', () => {
-        indexSlide++;
-        if (indexSlide == slides.length) {
-            indexSlide = 0;
-        }
-        toggleSlider(indexSlide, slides);
+    function plusSlides(n) {
+        showSlides(slideIndex += n); //вызов showSlides с увеличенным на единицу значением индекса
+    }
+
+    prev.addEventListener('click', () => {
+        plusSlides(-1);
     });
 
-    prevSlide.addEventListener('click', () => {
-        indexSlide--;
-        if (indexSlide < 0) {
-            indexSlide = slides.length - 1;
-        }
-        toggleSlider(indexSlide, slides);
+    next.addEventListener('click', () => {
+        plusSlides(1);
     });
 
 
